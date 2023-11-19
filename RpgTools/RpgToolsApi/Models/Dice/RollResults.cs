@@ -20,11 +20,11 @@
             this.Timestamp = DateTime.UtcNow;
         }
 
-        public string PlayerName { get; set; }
-        public uint Dice { get; set; }
-        public uint Sides { get; set; }
-        public IEnumerable<int> Results { get; set; }
-        public uint Total { get; set; }
+        public string PlayerName { get; }
+        public uint Dice { get; }
+        public uint Sides { get; }
+        public IEnumerable<int> Results { get; }
+        public uint Total { get; }
         public DateTime Timestamp { get; }
     }
 }
