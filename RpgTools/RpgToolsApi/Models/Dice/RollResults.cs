@@ -2,9 +2,29 @@
 {
     public class RollResults
     {
-        public int Dice { get; set; }
-        public int Sides { get; set; }
+        public RollResults(string PlayerName, uint Dice, uint Sides)
+        {
+            this.PlayerName = PlayerName ?? string.Empty;
+            this.Dice = Dice;
+            this.Sides = Sides;
+            this.Timestamp = DateTime.UtcNow;
+            var list = new List<int>();
+            var rand = new Random();
+
+            for (uint i = 0; i < Dice; i++)
+            {
+                list.Add(rand.Next(1, (int)Sides + 1));
+            }
+
+            this.Results = list;
+            this.Total = (uint)list.Sum();
+        }
+
+        public string PlayerName { get; set; }
+        public uint Dice { get; set; }
+        public uint Sides { get; set; }
         public IEnumerable<int>? Results { get; set; }
-        public int Total { get; set; }
+        public uint Total { get; set; }
+        public DateTime Timestamp { get; }
     }
 }
