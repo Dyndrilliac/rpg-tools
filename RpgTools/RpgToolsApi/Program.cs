@@ -27,19 +27,13 @@ app.UseHttpsRedirection();
 
 app.MapIdentityApi<AppUser>();
 
-app.MapGet("/", (ClaimsPrincipal user) => $"Hello {user.Identity!.Name}!")
-    .RequireAuthorization();
-
-app.MapGet("/roll", (ClaimsPrincipal user, int Dice, int Sides) => $"Rolling {Dice}d{Sides}...")
-    .WithName("RollDice")
+app.MapGet("/roll", (ClaimsPrincipal user, int Dice, int Sides) => $"Rolling {Dice}d{Sides} for {user.Identity!.Name}...")
     .WithOpenApi(generatedOperation =>
     {
-        var numDiceParam = generatedOperation.Parameters[1];
-        numDiceParam.Description = "The number of dice to roll.";
-
-        var numSidesParam = generatedOperation.Parameters[2];
-        numSidesParam.Description = "The number of sides on each die.";
-
+        generatedOperation.OperationId = "RollDice";
+        generatedOperation.Description = "This endpoint allows a user to roll an arbitrary amount of dice, with each die having an arbitrary number of sides.";
+        generatedOperation.Parameters[0].Description = "The number of dice to roll.";
+        generatedOperation.Parameters[1].Description = "The number of sides on each die.";
         return generatedOperation;
     })
     .RequireAuthorization();
