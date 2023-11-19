@@ -14,24 +14,13 @@ namespace RpgToolsApi.Controllers.Dice
         {
             app.MapGet("/roll", (ClaimsPrincipal user, uint Dice, uint Sides) =>
             {
-                string playerName = string.Empty;
-
-                if (user != null)
-                {
-                    if (user.Identity != null)
-                    {
-                        if (user.Identity.Name != null)
-                        {
-                            playerName = user.Identity.Name;
-                        }
-                    }
-                }
+                string playerName = user.Identity?.Name ?? string.Empty;
 
                 return new RollResults(playerName, Dice, Sides);
             })
+                .WithName("RollDice")
                 .WithOpenApi(generatedOperation =>
                 {
-                    generatedOperation.OperationId = "RollDice";
                     generatedOperation.Description = "This endpoint allows a user to roll an arbitrary amount of dice, with each die having an arbitrary number of sides.";
                     generatedOperation.Parameters[0].Description = "The number of dice to roll.";
                     generatedOperation.Parameters[1].Description = "The number of sides on each die.";

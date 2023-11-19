@@ -7,7 +7,6 @@
             this.PlayerName = PlayerName ?? string.Empty;
             this.Dice = Dice;
             this.Sides = Sides;
-            this.Timestamp = DateTime.UtcNow;
             var list = new List<int>();
             var rand = new Random();
 
@@ -18,12 +17,13 @@
 
             this.Results = list;
             this.Total = (uint)list.Sum();
+            this.Timestamp = DateTime.UtcNow;
         }
 
         public string PlayerName { get; set; }
         public uint Dice { get; set; }
         public uint Sides { get; set; }
-        public IEnumerable<int>? Results { get; set; }
+        public IEnumerable<int> Results { get; set; }
         public uint Total { get; set; }
         public DateTime Timestamp { get; }
     }
