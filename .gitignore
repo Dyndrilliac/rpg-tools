@@ -1,3 +1,7 @@
 RpgTools/.vs/
+
 RpgTools/RpgToolsApi/bin/
 RpgTools/RpgToolsApi/obj/
+
+RpgTools/RpgToolsUi/node_modules/
+RpgTools/RpgToolsUi/obj/
