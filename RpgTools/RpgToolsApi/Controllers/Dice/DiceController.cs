@@ -14,8 +14,7 @@ namespace RpgToolsApi.Controllers.Dice
         {
             app.MapGet("/roll", (ClaimsPrincipal user, uint Dice, uint Sides) =>
             {
-                string playerName = user.Identity?.Name ?? string.Empty;
-
+                var playerName = user.Identity?.Name ?? string.Empty;
                 return new RollResults(playerName, Dice, Sides);
             })
                 .WithName("RollDice")
